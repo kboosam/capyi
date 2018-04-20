@@ -238,6 +238,7 @@ def get_hq():
     discount = randint(20,30) # display a random dicount
     
     resp = {
+            "qtnum": qtnum,
             "premium": premium,
             "discount": discount, 
             "error": error

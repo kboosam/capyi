@@ -204,7 +204,7 @@ def get_hq():
         #address_str = request.args.get('address', type= str)
         prop_val = request.args.get('value', type= int)
         fbid = request.args.get('fbid', type= str)
-        area = request.args.get('area', type= int)
+        area = request.args.get('area', type= float)
         qtnum = str(randint(100001, 199999))      ## GENERATE A RANDOM QUOTE NUMBER
         
         #print("##This is the request JSON:", str(request.get_json()), '\n\n')
@@ -221,19 +221,21 @@ def get_hq():
     
     
     if prop_val <200000:
-        premium = prop_val * 0.000525 
+        premium = prop_val * 0.00325 
     
     elif prop_val < 350000:
-        premium = prop_val * 0.000510 
+        premium = prop_val * 0.00310 
 
     elif prop_val < 500000:
-        premium = prop_val * 0.000490 
+        premium = prop_val * 0.00290 
     else:
-        premium = prop_val * 0.000475
+        premium = prop_val * 0.00275
     
-    premium = premium * int(area)/850
+    premium = premium * area/950 # a multiplier for premium based of sqaure footage
+    
     error = False
-    discount = randint(20,30)
+    
+    discount = randint(20,30) # display a random dicount
     
     resp = {
             "premium": premium,

@@ -11,7 +11,6 @@ Django==2.0.1
 et-xmlfile==1.0.1
 Flask==0.12.2
 flask-cors==3.0.3
-grpc-google-iam-v1==0.11.4
 gunicorn==19.7.1
 idna==2.6
 itsdangerous==0.24

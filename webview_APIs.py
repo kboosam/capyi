@@ -231,7 +231,7 @@ def get_hq():
     else:
         premium = prop_val * 0.00275
     
-    premium = premium * area/950 # a multiplier for premium based of sqaure footage
+    premium = int(premium * area/950) # a multiplier for premium based of sqaure footage
     
     error = False
     

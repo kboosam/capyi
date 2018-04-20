@@ -19,9 +19,9 @@ from raven.contrib.flask import Sentry ## Sentry logging
 #import requests
 #import json, http.client
 #import urllib.request as req
+from random import randint
 import urllib.parse as parse
 import requests
-
 
 ####
 ## FUNCTION TO CALL CANARY HOUSE API TO GET THE HOURSE DETAILS
@@ -98,7 +98,7 @@ def build_resp(prop, fbid):
                                             'buttons': [
                                                     {
                                                             'type':'web_url',
-                                                            'url': 'https://capyiwv.herokuapp.com/services/hq?fbid='+ fbid + '&address='+ parse.quote_plus(address_det, safe='',encoding=None, errors=None) + '&value=' + str(prop_val),
+                                                            'url': 'https://capyi.herokuapp.com/services/hq?fbid='+ fbid + '&builtarea='+ str(area) + '&address='+ parse.quote_plus(address_det, safe='',encoding=None, errors=None) + '&value=' + str(prop_val),
                                                             'title': 'Show me details'
                                                             },
                                                     {
@@ -198,7 +198,50 @@ def get_home():
 @app.route('/services/hq', methods=['POST','GET'])
 def get_hq():
     
-    resp = {'text':'reached the function for getting the quote'}
+    print('--> Get home API started ******* \n\n')
+    try: 
+        print("##This is the request:", request.args , '\n\n')        
+        #address_str = request.args.get('address', type= str)
+        prop_val = request.args.get('value', type= int)
+        fbid = request.args.get('fbid', type= str)
+        area = request.args.get('area', type= int)
+        qtnum = str(randint(100001, 199999))      ## GENERATE A RANDOM QUOTE NUMBER
+        
+        #print("##This is the request JSON:", str(request.get_json()), '\n\n')
+        sentry.captureMessage(message='Started processing request- {}'.format(qtnum + '-' + fbid), level=logging.INFO)
+        
+       
+    except Exception as e:
+        print(e)
+        sentry.captureMessage(message=e, level=logging.FATAL)
+        resp = {
+                "error":True,
+                "msg": "Error while calculating the premium"
+                }
+    
+    
+    if prop_val <200000:
+        premium = prop_val * 0.000525 
+    
+    elif prop_val < 350000:
+        premium = prop_val * 0.000510 
+
+    elif prop_val < 500000:
+        premium = prop_val * 0.000490 
+    else:
+        premium = prop_val * 0.000475
+    
+    premium = premium * int(area)/850
+    error = False
+    discount = randint(20,30)
+    
+    resp = {
+            "premium": premium,
+            "discount": discount, 
+            "error": error
+            }
+    
+    print('---> Quote Response:', resp)
     
     return jsonify(resp)
 #### END OF  function

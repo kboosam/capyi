@@ -204,7 +204,7 @@ def get_hq():
         #address_str = request.args.get('address', type= str)
         prop_val = request.args.get('value', type= int)
         fbid = request.args.get('fbid', type= str)
-        area = request.args.get('area', type= float)
+        area = request.args.get('builtarea', type= float)
         qtnum = str(randint(100001, 199999))      ## GENERATE A RANDOM QUOTE NUMBER
         
         #print("##This is the request JSON:", str(request.get_json()), '\n\n')

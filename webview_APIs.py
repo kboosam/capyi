@@ -98,7 +98,8 @@ def build_resp(prop, fbid):
                                             'buttons': [
                                                     {
                                                             'type':'web_url',
-                                                            'url': 'https://capyi.herokuapp.com/services/hq?fbid='+ fbid + '&builtarea='+ str(area) + '&address='+ parse.quote_plus(address_det, safe='',encoding=None, errors=None) + '&value=' + str(prop_val),
+                                                            #'url': 'https://capyi.herokuapp.com/services/hq?fbid='+ fbid + '&builtarea='+ str(area) + '&address='+ parse.quote_plus(address_det, safe='',encoding=None, errors=None) + '&value=' + str(prop_val),
+                                                            'url': 'https://quote-app-cg.herokuapp.com/test?fbid='+ fbid + '&builtarea='+ str(area) + '&address='+ parse.quote_plus(address_det, safe='',encoding=None, errors=None) + '&value=' + str(prop_val),                                                          
                                                             'title': 'Show me details'
                                                             },
                                                     {
